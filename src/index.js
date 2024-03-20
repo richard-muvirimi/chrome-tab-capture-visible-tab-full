@@ -9,7 +9,7 @@ export default class captureVisibleTabFull {
             return base.then(() => {
                 return this._sendMessage(tab, {'type': 'doScroll', index});
             }).then(({top, left}) => {
-                return this._sleep(300).then(() => ({top, left}));
+                return this._sleep(500).then(() => ({top, left}));
             }).then(({top, left}) => {
                 return this._doCapture(tab).then((dataURI) => ({dataURI, top, left}));
             }).then(({dataURI, top, left}) => {
