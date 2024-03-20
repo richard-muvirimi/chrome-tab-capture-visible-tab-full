@@ -72,7 +72,7 @@ export default class captureVisibleTabFull {
     _drawImage({context, dataURI, left, top}) {
         return new Promise((resolve) => {
             console.assert('string' === typeof dataURI);
-            let blob = _dataURLToBlob(dataURI);
+            let blob = this._dataURLToBlob(dataURI);
             createImageBitmap(blob).then(image => {
                 context.drawImage(
                     image,
