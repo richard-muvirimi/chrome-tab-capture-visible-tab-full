@@ -1,5 +1,5 @@
 export default class captureVisibleTabFull {
-    async capture({tab}) {
+    async capture({tab, scrollDelay = 500}) {
         await this._loadContentScript(tab);
         let {contentFullSize, maxIndexSize, devicePixelRatio} = await this._sendMessage(tab, {'type': 'ready'});
         this._setDevicePixelRatio(devicePixelRatio);
@@ -9,7 +9,7 @@ export default class captureVisibleTabFull {
             return base.then(() => {
                 return this._sendMessage(tab, {'type': 'doScroll', index});
             }).then(({top, left}) => {
-                return this._sleep(500).then(() => ({top, left}));
+                return this._sleep(Math.max(500, scrollDelay)).then(() => ({top, left}));
             }).then(({top, left}) => {
                 return this._doCapture(tab).then((dataURI) => ({dataURI, top, left}));
             }).then(({dataURI, top, left}) => {
